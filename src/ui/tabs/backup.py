@@ -6,7 +6,11 @@ from datetime import datetime
 def render_backup_tab(backup_service, council_password: str) -> None:
     st.subheader("Backup Management")
 
-    if council_password and not st.session_state.get("council_authed", False):
+    if not council_password:
+        st.warning("Backups are disabled until a council admin password is configured.")
+        return
+
+    if not st.session_state.get("council_authed", False):
         st.info(
             "Backups are restricted to council staff. "
             "Log in on the Council Insights tab to access this area."
@@ -30,8 +34,8 @@ def render_backup_tab(backup_service, council_password: str) -> None:
     
     with col_info:
         st.info(
-            "💾 Backups protect your data by creating encrypted copies of all reports, "
-            "images, and metadata. Regular backups are essential for data safety."
+            "💾 Backups export report metadata as unencrypted JSON on the server. "
+            "Image files are not included. Protect exports and arrange separate image backups."
         )
 
     st.divider()

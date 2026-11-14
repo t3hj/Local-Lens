@@ -55,7 +55,7 @@ class AuthService:
             self.client.auth.sign_out()
         except Exception:
             pass
-        for key in ("ll_user", "ll_session", "ll_user_votes"):
+        for key in ("ll_user", "ll_session", "ll_user_votes", "council_authed", "_ll_supabase_client"):
             st.session_state.pop(key, None)
 
     # ── Restore session from stored access token ──────────────────────────────

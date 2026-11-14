@@ -81,7 +81,7 @@ Supabase credentials are missing or incorrect. Add the following to
 
 ```toml
 SUPABASE_URL  = "https://your-project-ref.supabase.co"
-SUPABASE_KEY  = "your-service-role-or-anon-key"
+SUPABASE_KEY  = "your-anon-key"
 SUPABASE_BUCKET = "report-images"
 SUPABASE_TABLE  = "reports"
 ```
@@ -89,9 +89,9 @@ SUPABASE_TABLE  = "reports"
 **Where to find these values:**
 1. Open your project at [supabase.com](https://supabase.com)
 2. Go to **Project Settings → API**
-3. Copy the **Project URL** and either the **anon** or **service_role** key
+3. Copy the **Project URL** and **anon** key for your development project
 
-> For full functionality (resident email notifications) use the `service_role` key.
+> Configure table and storage policies for the intended access. Do not substitute a service-role key to bypass permission errors.
             """
         )
         st.caption(f"Technical detail: `{_svc_err}`")
