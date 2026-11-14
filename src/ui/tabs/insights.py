@@ -29,6 +29,7 @@ def render_insights_tab(reports: list[dict], council_password: str, upload_servi
             "No admin password configured. "
             "Set `COUNCIL_ADMIN_PASSWORD` in `.streamlit/secrets.toml`."
         )
+        return
 
     if not st.session_state.get("council_authed", False) and council_password:
         st.info("This area is reserved for council staff.")
