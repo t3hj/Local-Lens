@@ -119,7 +119,7 @@ Install pytest separately for development:
 
 ```sh
 python -m pip install pytest
-python -m pytest tests/test_session_boundaries.py -q
+python -m pytest -q
 python -m compileall -q app.py config src
 ```
 
@@ -127,11 +127,10 @@ The boundary tests use fake services and do not access Supabase or send email.
 They are regression checks, not proof of live RLS or account isolation in a
 configured deployment.
 
-The historical `tests/test_storage/` suite is currently incompatible with its
-implementation: it imports `Versioning` while the module defines
-`VersioningManager`, and constructs `CloudStorage` without its required bucket.
-A full `python -m pytest` run therefore does not pass. These old tests do not
-cover the active Supabase upload/report workflow.
+The legacy storage helper tests now use temporary files and a mocked Google
+Storage client. They cover version persistence, bucket/path forwarding and
+error handling without cloud credentials or extra runtime dependencies.
+They do not cover the active Supabase upload/report workflow.
 
 The `docker/` files also describe an older topology, including placeholder
 storage and SQLite services and an incompatible build context. Use the Python
@@ -142,5 +141,5 @@ setup above until that configuration is replaced and tested.
 1. Export and review the current schema and least-privilege policies for a clean setup.
 2. Replace the shared council password with explicit staff authorisation.
 3. Separate privileged notification lookups from resident-facing data access.
-4. Replace legacy storage tests with mocked report-flow tests and disposable-project integration tests.
+4. Add mocked report-flow tests and disposable-project integration tests.
 5. Reduce and lock runtime dependencies, then rebuild the container configuration.
